@@ -3,6 +3,8 @@
 This is a script that automates some of the things that I do when on a testing a web application.
 I have called it wart which is short for Web App Recon Tasks. Fitting as my code is not too pretty either!
 
+Only tested on Kali linux so far.
+
 # Why
 
 I found myself running the same tools again and again each time I did a web app assessment so I wrote a 'wrapper' to run them. It is not meant to be all you do by any means. There is a lot missing from this but it was a few of the tasks I do a lot so felt like automating them and it went from there.

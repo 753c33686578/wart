@@ -36,7 +36,7 @@ usage(){
 # Error checking for arguements
 
 if [ $# -ne 3 ]; then
-	echo -e "${RED}[-] Incorrect number or arguements.${NC}"
+	echo -e "${RED}[-] Incorrect number or arguements${NC}"
 	echo
 	usage
 fi

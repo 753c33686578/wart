@@ -91,7 +91,7 @@ echo -e "${GREEN}[*] Launching nmap scan"
 if [ ! -d nmap ];then 
 	mkdir nmap
 fi
-    echo -e "	${YELLOW}[*] nmap scanning $ssl://$site"
+    echo -e "	${YELLOW}[*] Running nmap"
 nmap -Pn -A -oA nmap/tcpscan -iL $2 > /dev/null 2>&1
 echo 
 
@@ -132,7 +132,7 @@ if [ $ssl == "https" ]; then
 		for site in `cat $2`
 		do
 			echo -e "	${YELLOW}[*] Running full testssl.sh $site:$p"
-			# testssl has a --log param but it outputs to the screen which I don't reallt want
+			# testssl has a --log param but it outputs to the screen which I don't really want
 			../tools/testssl.sh/testssl.sh "$site:$port" > "testssl/testssl-$site:$port"
 		done
 	done
@@ -143,8 +143,7 @@ echo -e "${GREEN}[*] Launching EyeWitness"
 if [ ! -d EyeWitness ]; then
        	mkdir EyeWitness
 fi
-echo
-		echo -e "	${YELLOW}[*] Running EyeWitness against $ssl://$site"
+		echo -e "	${YELLOW}[*] Running EyeWitness"
 ../tools/EyeWitness/EyeWitness.py -x nmap/tcpscan.xml --all-protocols --no-prompt -d EyeWitness >/dev/null 2>&1
 
 

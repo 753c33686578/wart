@@ -17,9 +17,9 @@ command -v dirb >/dev/null 2>&1 || { echo -e "${RED}dirb seems to be missing${NC
 }
 # Help and Usage
 usage(){
-		echo -e "${GREEN}[*] Web Application Recon Tasks"
+		echo -e "${GREEN}[*] Web Application Recon Tasks${NC}"
 		echo
-		echo -e "[*] Usage: $0 Options"
+		echo -e "[*] Usage: $0 [Options]"
 		echo -e "	${YELLOW}[+] Only options f and p require arguments"
 		echo -e "	[+] nmap will run by default"
 		echo -e "	[+] -a [run all tools against site]"
@@ -31,7 +31,7 @@ usage(){
 		echo -e "	[+] -t [run testssl against site - will be prompted for ports to test against. Default is 443]"
 		echo -e "	[+] -i [run IIS ShortName Scanner against site]"
 		echo -e "	[+] -e [run EyeWitness against site]"
-		echo -e "	[+] -h [Display help]"
+		echo -e "	[+] -h [Display help]${NC}"
 		echo
 		echo -e "${GREEN}[*] Examples${NC}"
 		echo -e "	${YELLOW}[+] Run all tools against site: $0 -p https -f sites -a"

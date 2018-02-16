@@ -8,15 +8,15 @@ NC='\033[0m'
 
 echo -e "\n${GREEN}Running setup script\n"
 
-# Create wart directory
+# Create tools directory
 echo -e "${GREEN}[*] Creating tool directory${NC}"
-if [ ! -d wart ]; then 
-	mkdir wart
+if [ ! -d tools ]; then 
+	mkdir tools
 	echo -e "${YELLOW}	[+] Directory created"
 else
 	echo -e "${BLUE}	[*] Directory exists${NC}"
 fi
-cd wart
+cd tools
 
 # Create hoppy directory 
 echo -e "${GREEN}[*] Creating hoppy directory"

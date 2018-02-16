@@ -6,20 +6,15 @@ YELLOW='\033[0;33m'
 NC='\033[0m'
 
 # Command checks
+commandchecks(){
 command -v nmap >/dev/null 2>&1 || { echo -e "${RED}nmap seems to be missing\r\nAborting.${NC}" >&2; exit 1; }
-
 command -v nikto >/dev/null 2>&1 || { echo -e "${RED}nikto seems to be missing${NC}\r\n${RED}Aborting.${NC}" >&2; exit 1; }
-
-command -v wart/hoppy/hoppy >/dev/null 2>&1 || { echo -e "${RED}hoppy did not download correctly. Please remove the wart/hoppy directory and re-run the setup script.${NC}" >&2; exit 1; }
-
-command -v wart/testssl.sh/testssl.sh >/dev/null 2>&1 || { echo -e "${RED}testssl.sh did not download correctly. Please remove the wart/testssl.sh directory and re-run the setup script.${NC}" >&2; exit 1; }
-
-command -v bash -c wart/IIS-ShortName-Scanner/multi_targets.sh >/dev/null 2>&1 || { echo -e "${RED}IIS-ShortName-Scanner did not download correctly. Please remove the wart/IIS-ShortName-Scanner directory and re-run the setup script.";}
-
-command -v wart/EyeWitness/EyeWitness.py >/dev/null 2>&1 || { echo -e "${RED}Eyewitness did not download correctly. Please remove the wart/EyeWitness directory and re-run the setup script.${NC}";}
-
+command -v tools/hoppy/hoppy >/dev/null 2>&1 || { echo -e "${RED}hoppy did not download correctly. Please remove the tools/hoppy directory and re-run the setup script.${NC}" >&2; exit 1; }
+command -v tools/testssl.sh/testssl.sh >/dev/null 2>&1 || { echo -e "${RED}testssl.sh did not download correctly. Please remove the tools/testssl.sh directory and re-run the setup script.${NC}" >&2; exit 1; }
+command -v bash -c tools/IIS-ShortName-Scanner/multi_targets.sh >/dev/null 2>&1 || { echo -e "${RED}IIS-ShortName-Scanner did not download correctly. Please remove the tools/IIS-ShortName-Scanner directory and re-run the setup script.";}
+command -v tools/EyeWitness/EyeWitness.py >/dev/null 2>&1 || { echo -e "${RED}Eyewitness did not download correctly. Please remove the tools/EyeWitness directory and re-run the setup script.${NC}";}
 command -v dirb >/dev/null 2>&1 || { echo -e "${RED}dirb seems to be missing${NC}";}
-
+}
 # Help and Usage
 usage(){
 		echo -e "${GREEN}[*] Web Application Recon Tasks"
@@ -33,28 +28,30 @@ usage(){
 	exit 0
 }
 
-# Error checking for arguements
+commandchecks
+
+# Error checking for arguments
 
 if [ $# -ne 3 ]; then
-	echo -e "${RED}[-] Incorrect number or arguements${NC}"
+	echo -e "${RED}[-] Incorrect number of arguments${NC}"
 	echo
 	usage
 fi
 
 if [ "$1" != "http" ] && [ "$1" != "https" ]; then
-	echo -e "${RED}[-] First arguement was not http or https${NC}"
+	echo -e "${RED}[-] First argument was not http or https${NC}"
 	echo
 	usage
 fi
 
 if [ ! -f $2 ]; then
-	echo -e "${RED}[-] Second arguement was not file${NC}"
+	echo -e "${RED}[-] Second argument was not file${NC}"
 	echo
 	usage
 fi      
 
 if [ "$3" != "1" ] && [ "$3" != "0" ]; then 
-	echo -e "${RED}[-] Third arguement was not 1 or 0${NC}"
+	echo -e "${RED}[-] Third argument was not 1 or 0${NC}"
 	echo
 	usage
 fi
@@ -94,6 +91,7 @@ echo -e "${GREEN}[*] Launching nmap scan"
 if [ ! -d nmap ];then 
 	mkdir nmap
 fi
+    echo -e "	${YELLOW}[*] nmap scanning $ssl://$site"
 nmap -Pn -A -oA nmap/tcpscan -iL $2 > /dev/null 2>&1
 echo 
 
@@ -106,7 +104,7 @@ fi
 for site in `cat $2`
 do
     echo -e "	${YELLOW}[*] Hoppy scanning $ssl://$site"
-    ../wart/hoppy/hoppy -h "$ssl://$site" -E -S"hoppy/$site-$ssl" > /dev/null 2>&1
+    ../tools/hoppy/hoppy -h "$ssl://$site" -E -S"hoppy/$site-$ssl" > /dev/null 2>&1
 done
 
 
@@ -135,7 +133,7 @@ if [ $ssl == "https" ]; then
 		do
 			echo -e "	${YELLOW}[*] Running full testssl.sh $site:$p"
 			# testssl has a --log param but it outputs to the screen which I don't reallt want
-			../wart/testssl.sh/testssl.sh "$site:$port" > "testssl/testssl-$site:$port"
+			../tools/testssl.sh/testssl.sh "$site:$port" > "testssl/testssl-$site:$port"
 		done
 	done
 fi
@@ -146,7 +144,7 @@ if [ ! -d EyeWitness ]; then
        	mkdir EyeWitness
 fi
 echo
-../wart/EyeWitness/EyeWitness.py -x nmap/tcpscan.xml --all-ssls --no-prompt -d EyeWitness >/dev/null 2>&1
+../tools/EyeWitness/EyeWitness.py -x nmap/tcpscan.xml --all-ssls --no-prompt -d EyeWitness >/dev/null 2>&1
 
 
 # IIS Short name scanner
@@ -158,7 +156,7 @@ fi
 for site in `cat $2`
 	do
 		echo -e "	${YELLOW}[*] Shortname scanning $ssl://$site"
-		java -jar ../wart/IIS-ShortName-Scanner/iis_shortname_scanner.jar 0 20 "$proto://$target" ../wart/IIS-ShortName-Scanner/config.xml > "IIS_ShortName_Scanner/iis_shortname_$site-$ssl"
+		java -jar ../tools/IIS-ShortName-Scanner/iis_shortname_scanner.jar 0 20 "$ssl://$site" ../tools/IIS-ShortName-Scanner/config.xml > "IIS_ShortName_Scanner/iis_shortname_$site-$ssl"
 	done
 
 # Directory Brute forcing	

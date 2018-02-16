@@ -144,7 +144,8 @@ if [ ! -d EyeWitness ]; then
        	mkdir EyeWitness
 fi
 echo
-../tools/EyeWitness/EyeWitness.py -x nmap/tcpscan.xml --all-ssls --no-prompt -d EyeWitness >/dev/null 2>&1
+		echo -e "	${YELLOW}[*] Running EyeWitness against $ssl://$site"
+../tools/EyeWitness/EyeWitness.py -x nmap/tcpscan.xml --all-protocols --no-prompt -d EyeWitness >/dev/null 2>&1
 
 
 # IIS Short name scanner

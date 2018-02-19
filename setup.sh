@@ -61,5 +61,6 @@ else
 fi
 echo
 echo -e "${GREEN}[*] Setting folder permissions${NC}"
+chown $USER:$USER -R ../tools
 echo
 echo -e "${GREEN}[*] Setup Complete"${NC}

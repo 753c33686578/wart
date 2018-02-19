@@ -14,7 +14,7 @@ if [ ! -d tools ]; then
 	mkdir tools
 	echo -e "${YELLOW}	[+] Directory created"
 else
-	echo -e "${BLUE}	[*] Directory exists${NC}"
+	echo -e "${BLUE}	[*] Directory exists - Nothing to do${NC}"
 fi
 cd tools
 

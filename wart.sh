@@ -17,15 +17,15 @@ command -v dirb >/dev/null 2>&1 || { echo -e "${RED}dirb seems to be missing${NC
 }
 # Help and Usage
 usage(){
-		echo -e "${GREEN}[*] Web Application Recon Tasks${NC}"
+		echo -e "${GREEN}[*] Web Application Recon Tasks"
 		echo
 		echo -e "[*] Usage: $0 [Options]"
 		echo -e "	${YELLOW}[+] Only options f and p require arguments"
 		echo -e "	[+] nmap will run by default"
 		echo -e "	[+] -a [run all tools against site]"
 		echo -e "	[+] -p [http or https. Default is http]"
-		echo -e "	[+] -f [file containg sites and IPs to test on individual lines]"
-		echo -e "	[+] -d [run dirb with big.txt wordlisti against site]"
+		echo -e "	[+] -f [file containing sites and IPs to test on individual lines]"
+		echo -e "	[+] -d [run dirb with big.txt wordlist against site]"
 		echo -e "	[+] -n [run nikto against site]"
 		echo -e "	[+] -y [run hoppy against site]"
 		echo -e "	[+] -t [run testssl against site - will be prompted for ports to test against. Default is 443]"
@@ -89,7 +89,8 @@ while getopts 'ap:df:nytieh' option; do
 			testssl=true
 			echo -e "${GREEN}[*] testssl scans will be run"
 			if [ $ssl = "http" ];then
-				echo -e "${YELLOW}[*] Switching protocol to https${NC}"
+				echo -e "${YELLOW}	[*] Switching protocol to https${NC}"
+				echo
 			ssl="https"
 			fi
 			;;
@@ -123,24 +124,25 @@ if [ "$ssl" != "http" ] && [ "$ssl" != "https" ]; then
 	echo -e "${RED}[-] -p argument was not http or https${NC}"
 	echo
 	usage
+	exit 0
 fi
 
 if [ ! -f $file ]; then
 	echo -e "${RED}[-] File argument was not file${NC}"
 	echo
 	usage
+	exit 0
 fi      
 
 
 # Get ports for testssl
 if [ $ssl == "https" ]; then
 	port=443
-	echo -e "${YELLOW}[*] Which ports are running ssl other then 443."
+	echo -e "${YELLOW}[*] Which ports are running tls/ssl other then 443."
 	read -p "	[>]Enter ports with spaces between each one (Leave blank for none):" ports
 	echo
 	portlist="$port $ports"
-	echo -e "${GREEN}[+] testssl will scan $(echo $portlist|tr " " "\n"|sort|tr "\n" " ")"
-	echo -e "${NC}"
+	echo -e "${GREEN}[+] testssl will scan $(echo $portlist|tr " " "\n"|sort -n|tr "\n" " ")${NC}"
 	sslport="$port $ports"
 fi
 

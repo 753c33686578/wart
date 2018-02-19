@@ -60,4 +60,6 @@ else
 	echo -e "${BLUE}	[*] EyeWitness exists - Nothing to do${NC}"
 fi
 echo
+echo -e "${GREEN}[*] Setting folder permissions${NC}"
+echo
 echo -e "${GREEN}[*] Setup Complete"${NC}

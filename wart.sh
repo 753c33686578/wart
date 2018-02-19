@@ -56,6 +56,10 @@ while getopts 'ap:df:nytieh' option; do
 	case "$option" in
 		a)
 			echo -e "${GREEN}[*] Running all tools${NC}"
+			if [ $ssl = "http" ];then
+				echo -e "${YELLOW}	[*] Switching protocol to https${NC}"
+				echo
+			fi
 			ssl="https"
 			dirb=true
 			nmap=true

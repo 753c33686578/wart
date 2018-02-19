@@ -56,6 +56,7 @@ if [ ! -d EyeWitness ]; then
 	git clone --quiet https://github.com/ChrisTruncer/EyeWitness.git
 	cd EyeWitness
 	bash -c setup/setup.sh > /dev/null 2>&1
+	cd ..
 else 
 	echo -e "${BLUE}	[*] EyeWitness exists - Nothing to do${NC}"
 fi

@@ -139,7 +139,7 @@ fi
 if [ $ssl == "https" ]; then
 	port=443
 	echo -e "${YELLOW}[*] Which ports are running tls/ssl other then 443."
-	read -p "	[>]Enter ports with spaces between each one (Leave blank for none):" ports
+	read -p "	[>]Enter ports with spaces between each one (Leave blank for just 443):" ports
 	echo
 	portlist="$port $ports"
 	echo -e "${GREEN}[+] testssl will scan $(echo $portlist|tr " " "\n"|sort -n|tr "\n" " ")${NC}"

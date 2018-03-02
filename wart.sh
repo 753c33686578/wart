@@ -17,7 +17,13 @@ command -v dirb >/dev/null 2>&1 || { echo -e "${RED}dirb seems to be missing${NC
 }
 # Help and Usage
 usage(){
-		echo -e "${GREEN}[*] Web Application Recon Tasks"
+		echo -e ${GREEN}" __    __           _ "  
+		echo -e "/ / /\ \ \__ _ _ __| |_" 
+		echo -e "\ \/  \/ / _\` | '__| __|"
+		echo -e " \  /\  / (_| | |  | |_ "
+		echo -e "  \/  \/ \__,_|_|   \__|"
+		echo
+		echo -e "[*] Web Application Recon Tasks"
 		echo
 		echo -e "[*] Usage: $0 [Options]"
 		echo -e "	${YELLOW}[+] Only options f and p require arguments"

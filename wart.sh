@@ -248,6 +248,7 @@ if [ $eyewitness = true ]; then
 	fi
 			echo -e "	${YELLOW}[*] Running EyeWitness"
 	../tools/EyeWitness/EyeWitness.py -x nmap/tcpscan.xml --all-protocols --no-prompt -d EyeWitness >/dev/null 2>&1
+	mv geckodriver.log parsed_xml.txt EyeWitness/
 else
        echo	
        echo -e "${RED}[*] Skipping EyeWitness${NC}"

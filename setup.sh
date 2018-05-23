@@ -22,7 +22,7 @@ cd tools
 echo -e "${GREEN}[*] Creating hoppy directory"
 if [ ! -d hoppy ]; then
 	echo -e "${YELLOW}	[+] Installing and unpacking hoppy${NC}"
-	wget --quiet https://labs.portcullis.co.uk/download/hoppy-1.8.1.tar.bz2
+	wget --quiet --no-check-certificate https://labs.portcullis.co.uk/download/hoppy-1.8.1.tar.bz2
 	tar -xf hoppy-1.8.1.tar.bz2
 	mv hoppy-1.8.1 hoppy
 	rm hoppy-1.8.1.tar.bz2
